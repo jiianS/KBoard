@@ -4,19 +4,16 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>view FORM</title>
 </head>
+
 <body>
 <div>
-	<글 조회>
     <form id="viewForm" name="viewForm" method="post">
         <div>
-            <h2>글 쓰 기</h2>
+            <h2>글쓰기</h2>
             <div>
                 <table>
                     <tr>
@@ -29,41 +26,43 @@
                     </tr>
                     <tr>
                         <th>작성자</th>
-                        <td><input style="width: 500px" height="30px type="text" id="writer" name="writer" value="${result.writer }"/></td>
+                        <td><input style="width: 500px" height="30px" type="text" id="writer" name="writer" value="${result.writer }"/></td>
                     </tr>
                 </table>
                 <div>
-                    <a href='#' onClick='bUpdate()'>수정</a>
-                    <a href='#' onClick='cancel()'>목록</a>
-                    <a href='#' onClick='bRelay()'>답변</a>                    
+                    <a href='#' onClick='fn_update()'>수정</a>
+                    <a href='#' onClick='fn_cancel()'>목록</a>
+                    <a href='#' onClick='fn_relay()'>답변</a>                    
                 </div>
             </div>
         </div>
-        <input type='hidden' id='userNO' name='userNO' value='${result.userNO }' />
+        <input type='hidden' id='code' name='code' value='${result.code }' />
     </form>
 <script>
-
 //목록
-function cancel(){
+function fn_cancel(){
     
     var form = document.getElementById("viewForm");
+    
     form.action = "<c:url value='/board/boardList.do'/>";
     form.submit();
     
 }
  
 //수정
-function bUpdate(){
+function fn_update(){
     
     var form = document.getElementById("viewForm");
+    
     form.action = "<c:url value='/board/updateboard.do'/>";
     form.submit();
 }
  
 //답변
-function bRelay(){
+function fn_relay(){
     
     var form = document.getElementById("viewForm");
+    
     form.action = "<c:url value='/board/relayForm.do'/>";
     form.submit();
     

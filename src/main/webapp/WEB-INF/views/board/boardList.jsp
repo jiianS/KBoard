@@ -1,4 +1,3 @@
- 
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,67 +5,72 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>BoardList</title>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 
-<h3> board List</h3>
 
-<form name="boardForm" id="boardForm" method="post">
-	<table>
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>글쓴이</th>
-				<th>날짜</th>
-				<th>조회수</th>
-			</tr>
-		</thead>		
-		<tbody>
-			<c:forEach var="result" items="${list }" varStatus="status">
-			<tr>
-				<td><c:out value="${result.userNO }"/></td>
-				<td><a href="#" onclick="viewContent($(result.userNO))">
-					<c:out value="${result.title }"/></a></td>
-				<td><c:out value="${result.writer }"/></td>
-				<td><c:out value="${result.reg_datetime }"/></td>
-			</tr>		
-			</c:forEach>
-		</tbody>
-	</table>
+<div>
+    <form id="boardForm" name="boardForm" method="post" action="">
+        <table>
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>날짜</th>
+                    <th>조회수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="result" items="${list }" varStatus="status">
+                <c:url value='/board/viewContent.do' var="fn_view"> <c:param name="code" value="${result.code}"  /></c:url>
+                
+                    <tr>
+                        <td><c:out value="${result.code }"/></td>
+<%--                         <td><a href='#' onClick='fn_view(${result.code})'><c:out value="${result.title }"/></a></td> --%>
+						<td><a href="${fn_view}">     <c:out value="${result.title }"/></a></td>
+                        <td><c:out value="${result.writer }"/></td>
+                        <td><c:out value="${result.reg_datetime }"/></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        
+        <div>            
+            <a href='#' onClick='fn_write()'>글쓰기</a>            
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	fn
 	
-	<div>
-		<!-- <button id="bWrite" type="button" onclick="bWrite()" >글쓰기</button>-->
-		 <a href = # onclick="bWrite()">글쓰기</a>
-	</div>
-</form>
+});
 
-<!-- script -->
 
-<script>
+function fn_list(){
+    var form = document.getElementById("boardForm");
+    var url = "<c:url value='/board/boardList.do'/>";
+    form.action = url;    
+    form.submit(); 
+}
+
 
 //글쓰기
-function bWrite() {
-	var form = document.getElementById("boardForm");
-	form.action = "<c:url value='/board/write.do'/>";
-	form.submit();
+function fn_write(){
+    
+    var form = document.getElementById("boardForm");
+    form.action = "<c:url value='/board/writeForm.do'/>";
+    form.submit();
 }
-
-//게시글 조회
-function viewContent() {
-	
-	var form = document.getElementById("boardForm");
-	var url = "<c:url value='/board/viewContent.do'/>";
-	url = url + "?userNO="+userNO;
-	
-	form.action=url;
-	from.submit();
-}
+ 
 </script>
+
+
 </body>
 </html>

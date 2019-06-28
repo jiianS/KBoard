@@ -142,6 +142,8 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.3.17.RELEASE</version>
 		</dependency>
+		
+		<!-- DBCP 데이터베이스 풀 커넥션 -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
@@ -172,7 +174,7 @@
 			<scope>system</scope>
 			<systemPath>C:/Program Files/Java/jdk1.8.0_211/lib/tools.jar</systemPath>
 		</dependency>
-	
+
 	</dependencies>
     <build>
         <plugins>
